@@ -92,11 +92,9 @@ AddTodo = Backbone.View.extend({
 	},
  
 	initialize: function() {
-		// yo view! pay attention to these models any changes to the model will call method render
+								// this isNew though!!
 		this.listenTo(this.model, 'change' , this.render),
-		// empty div to render template this.el
-		$('.input-container').prepend(this.el);
-		// call to the View's render method
+		$('.input-container').append(this.el);
 		this.render();
 	},
 
@@ -114,7 +112,8 @@ AddTodo = Backbone.View.extend({
 		// a "change" event will be triggered on the model selected
 		this.model.set('task', taskvalue);
 		// saves the model to the database
-		this.model.save()
+		this.model.save();
+		('.todo-list-item input').val('');
 	},
 
 });
@@ -138,5 +137,5 @@ list.fetch().done(function(){
 	});
 });
 // nope
-var view = new AddTodo();
+var view2 = new AddTodo();
 

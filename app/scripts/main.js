@@ -34,9 +34,10 @@ TodoView = Backbone.View.extend({
 	//editTemplate: 
 	events: {
 		//'click .submit-task' : 'showSubmit'
-		'click .edit-button' 	: 'showEdit',
-		'click .save-button' 	: 'saveEdit',
-		'click .delete-button'  : 'destroy',
+		'click .edit-button' 	 : 'showEdit',
+		'click .save-button' 	 : 'saveEdit',
+		'click .delete-button'   : 'destroy',
+		'click .completed-button': 'taskDone'
 	},
  
 	initialize: function() {
@@ -68,6 +69,11 @@ TodoView = Backbone.View.extend({
 		this.model.set('task', taskvalue);
 		// saves the model to the database
 		this.model.save()
+	},
+
+	taskDone: function(){
+		this.$el.find('.task-item').addClass('.done');
+
 	},
 
 	destroy: function(){

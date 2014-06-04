@@ -22,9 +22,14 @@ body {
         font-size: 20px;
         margin: 0 20px 0 0;
 
-        &.changed {
-            background: rgb(181, 255, 177);
+    }
+      
+    .task-item span {
+
+        &.done {
+            text-decoration:line-through
         }
+
     }
 
     .submit-task {
@@ -37,17 +42,16 @@ body {
     }
 
 }
-.save-button {
-    color: green;
-    border: 2px solid green;
+
+.save-button,
+.completed-button {
+    background-color: green;
 }
 
 .delete-button {
-    color: red;
-    border: 2px solid red;
+    background-color: red;
 }
 
 .edit-button {
-    color: blue;
-    border: 2px solid blue;
+    background-color: blue;
 }

@@ -1,0 +1,53 @@
+// bower:scss
+// endbower
+
+body {
+    background: #fafafa;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #333;
+}
+
+.todo-list,
+.list-container {
+    min-height: 100px;
+    width: 400px;
+    margin: 50px auto 100px;
+    border: 1px solid green;
+
+    input {
+        display: block;
+        float: left;
+        padding: 4px;
+        width: 250px;
+        font-size: 20px;
+        margin: 0 20px 0 0;
+
+        &.changed {
+            background: rgb(181, 255, 177);
+        }
+    }
+
+    .submit-task {
+        height: 35px;
+        display: block;
+        float: left;
+        cursor: pointer;
+        margin: 0;
+        padding: 10px 30px;
+    }
+
+}
+.save-button {
+    color: green;
+    border: 2px solid green;
+}
+
+.delete-button {
+    color: red;
+    border: 2px solid red;
+}
+
+.edit-button {
+    color: blue;
+    border: 2px solid blue;
+}

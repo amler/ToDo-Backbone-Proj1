@@ -7,51 +7,113 @@ body {
     color: #333;
 }
 
-.todo-list,
-.list-container {
-    min-height: 100px;
-    width: 400px;
-    margin: 50px auto 100px;
-    border: 1px solid green;
+button {
+    border: 0;
+    border-radius: 30px;
+    float: right;
+    padding: 5px;
+    text-align: center;
+    text-shadow: 0 1px 1px #fff;
+    height: 25px;
+    width: 80px;
+    outline: none;  
+}
 
-    input {
-        display: block;
-        float: left;
-        padding: 4px;
-        width: 250px;
-        font-size: 20px;
-        margin: 0 20px 0 0;
+.main-content {
+    margin: 50px auto 50px;
+    padding: 40px;
+    background-color: #E0EBEB;
+    border-radius: 5px;
+    width: 600px;
 
+    h1 {
+        font-size: 4em;
+        margin: 0 0 20px 0;
+        padding: 0 0 20px 0;
+        text-align: center;
+        text-shadow: 4px 3px 0px #E0EBEB, 9px 8px 0px rgba(0,0,0,0.15);
+        border-bottom: 1px solid #333;
     }
-      
-    .task-item span {
 
-        &.done {
-            text-decoration:line-through
+    .input-wrap {
+        margin: 0 0 20px 0;
+        border-bottom: 1px solid #333;
+
+        // todo add input class
+        .todo-list-item {
+            display: inline-block;
+            font-size: 14px;
+            height: 20px;
+            margin: 0 20px 20px 0;
+            width: 300px;
         }
 
+        .enter-task {
+            background-color: #66C2C2;
+            border: 1px solid #33ADAD;
+
+            &:hover {
+                background-color: #80CCCC;
+            }
+
+            &:active {
+                background-color: #099;
+            }
+        }
     }
+    .todo-item {
+        border-bottom: 1px solid #333;
+        margin: 0 0 20px 0;
+        padding: 0 0 30px 0;
 
-    .submit-task {
-        height: 35px;
-        display: block;
-        float: left;
-        cursor: pointer;
-        margin: 0;
-        padding: 10px 30px;
+        span {
+            
+            &.done {
+                text-decoration:line-through;
+            }
+        }
+        .save-button,
+        .completed-button {
+            background-color: #99D6AD;
+            border: 1px solid #6B9679;
+            margin: 0 10px 0 0;
+
+            &:hover {
+                background-color: #B2E0C2;
+            }
+
+            &:active {
+                background-color: #66C285;
+            }
+        }
+
+        .delete-button {
+            background-color: #FFB8B8;
+            border: 1px solid #CC7A7A;
+
+            &:hover {
+                background-color: #FFD6D6;
+            }
+
+            &:active {
+                background-color: #FFA3A3;
+            }
+        }
+        
+        .edit-button {
+            background-color: #66C2C2;
+            border: 1px solid #33ADAD;
+            margin: 0 10px 0 0; 
+
+            &:hover {
+                background-color: #80CCCC;
+            }
+
+            &:active {
+                background-color: #099;
+            }
+        }
     }
-
 }
 
-.save-button,
-.completed-button {
-    background-color: green;
-}
 
-.delete-button {
-    background-color: red;
-}
-
-.edit-button {
-    background-color: blue;
-}

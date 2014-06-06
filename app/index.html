@@ -19,23 +19,27 @@
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div class="input-container"></div>
-        <div class="container"><span class"task-item done">qwofherofh</span></div>
-        
-        <!-- Input field for new tasks to be added -->
-        <script type="text/template" class="task-list-add-item">
-            <div class="todo-list-item">
-                <input class="todo-list-item" placeholder="enter todo" type="text" value="<%= task %>" >
-                <button class="submit-task">Enter</button>
+        <div class="main-content">
+            <h1>To-Do</h1>
+
+            <!-- Input field for adding new to-dos -->
+            <div class="input-wrap">
+                <input class="todo-list-item" placeholder="Enter new to-do" type="text">
+                <button class="enter-task">Enter</button>
             </div>
-        </script>
+
+            <!-- task list div-->
+            <div class="container"></div>
+       
+        </div>
+
 
         <!-- Task should be rendered on the page -->
         <script type="text/template" class="task-list-item">
             <span class="task-item"><%= task %></span>
+            <button class="delete-button">Delete</button>
             <button class="edit-button">Edit</button>
             <button class="completed-button">Complete</button>
-            <button class="delete-button">Delete</button>
         </script>
 
       <!-- template for editing task item -->

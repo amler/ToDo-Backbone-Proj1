@@ -9,10 +9,6 @@ Todo = Backbone.Model.extend({
 	},
 
 	idAttribute: '_id'
-
-/*	initialize: function () {
-                console.log(this.defaults.task);
-            }*/
 });
 
 ////////////////////////////////
@@ -30,8 +26,11 @@ TodoList = Backbone.Collection.extend({
 
 TodoView = Backbone.View.extend({
 	template: _.template($('.task-list-item').text()),
-	editTemplate: _.template($('.task-edit-item').text()),
 	//editTemplate: 
+	editTemplate: _.template($('.task-edit-item').text()),
+	
+	className: "todo-item",
+
 	events: {
 		//'click .submit-task' : 'showSubmit'
 		'click .edit-button' 	 : 'showEdit',
@@ -39,9 +38,9 @@ TodoView = Backbone.View.extend({
 		'click .delete-button'   : 'destroy',
 		'click .completed-button': 'taskDone'
 	},
- 
+	// only runs once - hence constant refreshing of browser to see new tasks added
 	initialize: function() {
-		// yo view! pay attention to these models any changes to the model will call method render
+		// tells THIS view to pay attention to these models & any changes to the model will call render method
 		this.listenTo(this.model, 'change' , this.render),
 		// empty div to render template this.el
 		$('.container').prepend(this.el);
@@ -57,23 +56,29 @@ TodoView = Backbone.View.extend({
 	},
 
 	showEdit: function() {
+		// 
 		var renderedTemplate = this.editTemplate(this.model.attributes)
+		
 		this.$el.html(renderedTemplate);
 	},
 
 	saveEdit: function() {
 		// find search through the descendants of these elements in the DOM tree and construct a new jQuery object from the matching elements.
 		// finding the value within the div rendered to extract the value
+		var currentTask = this.model.attributes.task;
 		var taskvalue = this.$el.find('.task-item input').val();
-		// a "change" event will be triggered on the model selected
-		this.model.set('task', taskvalue);
-		// saves the model to the database
-		this.model.save()
+		if (taskvalue == currentTask) {
+			this.render();
+		} else {
+			// a "change" event will be triggered on the model selected
+			this.model.set('task', taskvalue);
+			// saves the model to the database
+			this.model.save()
+		}
 	},
 
 	taskDone: function(){
-		this.$el.find('.task-item').addClass('.done');
-
+		this.$el.find('.task-item').toggleClass('done');
 	},
 
 	destroy: function(){
@@ -82,66 +87,62 @@ TodoView = Backbone.View.extend({
 		// takes element out of the DOM
 		this.remove();
 	}
-
 });
 
 ////////////////////////////////
-// Edit View
+// Add item View
 ////////////////////////////////
 
-AddTodo = Backbone.View.extend({
+AddTodoView = Backbone.View.extend({
 
-	addTaskTemplate: _.template($('.task-list-add-item').text()),
-	//editTemplate: 
-	events: {
-		'click .submit-task' : 'saveNewTodo'
-	},
- 
 	initialize: function() {
-								// this isNew though!!
-		this.listenTo(this.model, 'change' , this.render),
-		$('.input-container').append(this.el);
-		this.render();
+		this.listenTo(list, 'add', function(task){
+			new TodoView({model: task})
+		})
 	},
-
-	render: function() {
-	// variable for rendering template  // template  //passing the model and default prop
-	    var renderedTemplate = this.template(this.model.attributes)
-    // empty div // html render the variable above
-	    this.$el.html(renderedTemplate);
-	},
-
-	saveNewTodo: function() {
-		// find search through the descendants of these elements in the DOM tree and construct a new jQuery object from the matching elements.
-		// finding the value within the div rendered to extract the value
-		var taskvalue = this.$el.find('.todo-list-item input').val();
-		// a "change" event will be triggered on the model selected
-		this.model.set('task', taskvalue);
-		// saves the model to the database
-		this.model.save();
-		('.todo-list-item input').val('');
-	},
-
 });
 
-/*
-collection
-I'm not creating the list above like in the console
-list.add({name: 'heather'});
-list.first().save();
-*/
 ////////////////////////////////
 // Create instances
 ////////////////////////////////
 
-// new collection
+// variable for our collection
 var list = new TodoList();
-//
+
+var makeItHappen = new AddTodoView();
+
+//Fetch the default set of models for this collection from the server
+list.fetch();
+
+// long hand for document ready - page can't be manipulated safely until the document is "ready."
+$(document).ready(function(){
+	// on click of enter button
+	$('.enter-task').click(function(){
+		// assign input value to a variable (find element class name)
+		var taskvalue = $('.todo-list-item').val();
+		// variable for adding new model to the collection
+		var newTodo = list.add({task: taskvalue})
+		// saving that 
+		newTodo.save()
+		('.todo-list-item').val('');
+	})
+});
+
+
+//////////////////////////////
+// OLD Functions which led to creating a new view
+//////////////////////////////
+/*// MOVED INTO A NEW VIEW TO AVOID REFRESH
 list.fetch().done(function(){
 	list.each(function (task){
 		new TodoView({model: task});
 	});
-});
-// nope
-var view2 = new AddTodo();
+});*/
 
+/*
+declare variable for a new collection
+list.add({task: 'chore'});
+list.first().save();
+*/
+
+ 

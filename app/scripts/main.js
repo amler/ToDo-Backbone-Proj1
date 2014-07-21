@@ -17,7 +17,7 @@ Todo = Backbone.Model.extend({
 
 TodoList = Backbone.Collection.extend({
 	model: Todo,
-	url: 'http://tiny-pizza-server.herokuapp.com/collections/scamler-tests'
+	url: 'http://tiny-pizza-server.herokuapp.com/collections/Amler-ToDos'
 });
 
 ////////////////////////////////
